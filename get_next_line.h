@@ -12,13 +12,14 @@
 # define BUFFER_SIZE 42
 #endif
 
-typedef struct s_list	t_list;
-struct s_list
-{
-	char			*content;
-	struct s_list	*next;
-};
-
 char	*get_next_line(int fd);
+int	ft_found_n(char *s, int *index)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin(const char *s1, const char *s2)
+void	*ft_calloc(size_t count, size_t size)
+size_t	ft_strlen(char *s)
+char	*ft_strdup(const char *s)
+void	read_n_stck(int fd, int *c_read)
+void	if_n_found(char *s, int index, char *ligne)
 
 #endif
