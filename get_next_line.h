@@ -1,14 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 10:56:19 by nrossel           #+#    #+#             */
-/*   Updated: 2022/11/17 10:57:02 by nrossel          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#include "get_next_line.h"
+#include <sys/types.h>//"open",
+#include <sys/stat.h>//"open",
+#include <sys/uio.h>//"read"
+#include <fcntl.h>//"open",
+# include <unistd.h>// "write","close","read"
+# include <string.h>// "NULL"
 
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
+
+typedef struct s_list	t_list;
+struct s_list
+{
+	char			*content;
+	struct s_list	*next;
+};
+
+char	*get_next_line(int fd);
+
+#endif
