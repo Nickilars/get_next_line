@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:40:15 by nrossel           #+#    #+#             */
-/*   Updated: 2022/11/18 16:37:50 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/11/21 16:01:49 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,101 +14,98 @@
 
 /*---------------- strdup ------------------*/
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(char *s)
 {
 	char	*new_s;
+	int		len;
 
+	len = ft_strlen(s);
 	if (!s || !*s)
 		return (NULL);
-	new_s = ft_calloc((ft_strlen(s) + 1), sizeof(char));
+	new_s = ft_calloc((len + 1), sizeof(char));
 	if (!new_s)
 		return (NULL);
 	while (*s)
 	{
-		*new_s++ = s++;
+		*new_s++ = *s++;
 	}
-	return (new_s);
+	return (new_s - len);
 }
 /*---------------- read_n_stck ------------------*/
 
-void	read_n_stck(int fd, int *c_read)
+int	read_n_stck(int fd, char **tmp)
 {
-	char	*buff;
-	char	*tmp;
-	int		index;
+	char	buff[BUFFER_SIZE + 1];
 
-	buff = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
-	if (!buff)
-		return ;
-	*c_read = read(fd, buff, BUFFER_SIZE);
-	if (*c_read == -1)
-	{
-		free(buff)
-		return ;
-	}
-	tmp = ft_strdup(buff);
-	if (!tmp)
-	{
-		free(buff);
-		return ;
-	}
-	return (buff);
-}
+	if (read(fd, buff, BUFFER_SIZE) == -1)
+		return (-1);
 
-void	if_n_found(char *s, int index, char *ligne)
-{
-	if (ft_found_n(tmp,&index))
+	if (*tmp == NULL)
 	{
-		ft_strjoin(tmp, (ft_substr(buff, 0, index)));
-		line = ft_strdup(ft_substr(buff, index, ft_strlen(buff)));
+		*tmp = ft_strdup(buff);
+		return (0);
 	}
 	else
+		ft_strjoin (*tmp, buff);
+	return (0);
+}
+/*---------------- ft_n_found ------------------*/
+
+void	ft_n_found(char **line, char **tmp, int *index)
+{
+	if (!*tmp)
+		return ;
+	*line = ft_strdup(ft_substr(*tmp, 0, *index));
+	if (!*line)
 	{
-		ft_strjoin(tmp, buff);
+		free(*tmp);
+		*tmp = NULL;
+		return ;
 	}
+	*tmp = ft_substr(*tmp, *index, ft_strlen(*tmp));
+	if (!*tmp)
+	{
+		free(*line);
+		return ;
+	}	
 }
 
-
-	
-	
-}
 /*---------------- get_next_line ------------------*/
 
-char	*get_next_line(int *fd)
+char	*get_next_line(int fd)
 {
-	static char	*line;
-	int			c_read;
+	static char	*tmp;
+	int			index;
+	char		*line;
 
-	if (*fd < 0 || *fd == NULL || read(*fd, &line, 0) < 0)
-		return (NULL);
 	line = NULL;
-	read_n_stck(*fd, &c_read);
-	//1. lire et stocker dans malloc
-	//2. si '\n' , substr malloc dans une nouvelle liste
-	//3. liberer malloc
-	//4. repeter l'etape 1 à 3 jusqu'a tomber sur un $.
-	 
-
-
-
+	if (fd < 0 || read(fd, 0, 0) <0 || BUF1FER_SIZE <= 0)
+		return (NULL);
+	while (read(fd, tmp, 0) > 0)
+	{
+		if (read_n_stck(fd, &tmp) == -1)
+			return (NULL);
+		if (ft_found_c(tmp, &index))
+			break ;
+	}
+	ft_n_found(&line, &tmp, &index);
 	close(fd);
 	return (line);
 }
-
-#include <stdio.h>
-
-int	main()
-{
-	int	fd;
-	char *line;
-
-	fd = open("myfile.txt", O_RDONLY);
-	while (1)
-	{
-		line = get_next_line(&fd);
-		printf("%s", line); 
-		if (line == NULL)
-			break;
-		 free(line); 
-	}
-}
+// #include <stdio.h>
+// 
+// int	main()
+// {
+	// int	fd;
+	// char *line;
+// 
+	// fd = open("myfile.txt", O_RDONLY);
+	// while (1)
+	// {
+		// line = get_next_line(fd);
+		// printf("%s\n", line); 
+		// if (line == NULL)
+			// break;
+		//  free(line); 
+	// }
+// }

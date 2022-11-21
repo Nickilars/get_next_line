@@ -6,12 +6,11 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:48:55 by nrossel           #+#    #+#             */
-/*   Updated: 2022/11/18 16:37:53 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/11/21 13:43:25 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 /*--------- 1. strlen -----------*/
 size_t	ft_strlen(char *s)
@@ -30,19 +29,19 @@ void	*ft_calloc(size_t count, size_t size)
 	char	*s;
 	int		n;
 
+	n = count;
 	if (!count || !size)
 		return (NULL);
-	n = count + 1;
 	s = malloc(count * size);
 	if (!s)
-		return (s);
+		return (NULL);
 	while (n > 0)
 	{
 		*s = 0;
 		s++;
 		n--;
 	}
-	return (s);
+	return (s - (count * size));
 }
 
 /*--------- 3. strjoin -----------*/
@@ -57,7 +56,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	if (!new_s)
 		return (NULL);
 	i = 0;
-	while (*s2 && i++ < len_max )
+	while (*s2 && i++ < len_max)
 	{
 		if (*s1)
 			*new_s++ = *s1++;
@@ -66,11 +65,12 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	}
 	return (new_s - i);
 }
+
 /*--------- 4. substr -----------*/
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t			i;
-	char			*new_s;
+	size_t	i;
+	char	*new_s;
 
 	if (!s)
 		return (NULL);
@@ -91,7 +91,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 }
 /*--------- 5. found_c -----------*/
 
-int	ft_found_n(char *s, int *index)
+int	ft_found_c(char *s, int *index)
 {
 	int	i;
 
@@ -108,23 +108,23 @@ int	ft_found_n(char *s, int *index)
 	}
 	return (0);
 }
-#include <stdio.h>
-#include <stdlib.h>
-
-int	main()
-{
-	char *s1 = "Bienvenu";
-	char *s2 = " a toi";
-	char *s3 = "Ma fois\nc'est la vie";
-	int len;
-
-	len = 0;
-	printf("%s", ft_strjoin(s1, s2));
-	printf("\n");
-	printf("%zu", ft_strlen(s3));
-	printf("\n");
-	printf("%s", ft_substr(s3, 0, 7));
-	printf("\n");
-	printf("%d", ft_found_c(s3));
-	return (0);
-}
+// #include <stdio.h>
+// #include <stdlib.h>
+// 
+// int	main()
+// {
+	// char *s1 = "Bienvenu";
+	// char *s2 = " a toi";
+	// char *s3 = "Ma fois\nc'est la vie";
+	// int len;
+// 
+	// len = 0;
+	// printf("%s", ft_strjoin(s1, s2));
+	// printf("\n");
+	// printf("%zu", ft_strlen(s3));
+	// printf("\n");
+	// printf("%s", ft_substr(s3, 0, 7));
+	// printf("\n");
+	// printf("%d", ft_found_c(s3));
+	// return (0);
+// }
