@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:30:55 by nrossel           #+#    #+#             */
-/*   Updated: 2022/11/21 15:00:57 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/11/24 16:01:50 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,20 @@
 # include <string.h> // "NULL"
 # include <stdlib.h> // "malloc","free"
 
+// # include <stdio.h>
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 10
 # endif
 
 char	*get_next_line(int fd);
-int		ft_found_c(char *s, int *index);
+int		ft_found_c(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
 void	*ft_calloc(size_t count, size_t size);
 size_t	ft_strlen(char *s);
 char	*ft_strdup(char *s);
-int		read_n_stck(int fd, char **tmp);
-void	ft_n_found(char **line, char **tmp, int *index);
+void	statik_stck(char **statik, char *buff, int c_read);
+char	*ft_strret(char **statik, int c_read);
 
 #endif

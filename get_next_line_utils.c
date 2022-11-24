@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:48:55 by nrossel           #+#    #+#             */
-/*   Updated: 2022/11/21 13:43:25 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/11/24 16:11:24 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	*ft_calloc(size_t count, size_t size)
 		s++;
 		n--;
 	}
+	*s = 0;
 	return (s - (count * size));
 }
 
@@ -51,6 +52,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	size_t	len_max;
 	char	*new_s;
 
+	if (!s1 || !s2)
+		return (NULL);
 	len_max = (ft_strlen((char *)s1) + ft_strlen((char *)s2));
 	new_s = ft_calloc((len_max + 1), sizeof(char));
 	if (!new_s)
@@ -63,11 +66,12 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		else
 			*new_s++ = *s2++;
 	}
+	*new_s = 0;
 	return (new_s - i);
 }
 
 /*--------- 4. substr -----------*/
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	char	*new_s;
@@ -82,7 +86,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!new_s)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i <= len)
 	{
 		new_s[i] = s[start + i];
 		i++;
@@ -91,22 +95,21 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 }
 /*--------- 5. found_c -----------*/
 
-int	ft_found_c(char *s, int *index)
+int	ft_found_c(const char *s)
 {
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (-1);
 	while (*s)
 	{
 		if (*s == '\n')
-		{
-			*index = i;
-			return (1);
-		}
+			return (i);
 		i++;
 		s++;
 	}
-	return (0);
+	return (-1);
 }
 // #include <stdio.h>
 // #include <stdlib.h>
