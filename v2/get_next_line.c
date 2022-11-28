@@ -6,24 +6,26 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:40:15 by nrossel           #+#    #+#             */
-/*   Updated: 2022/11/28 14:41:44 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/11/28 17:02:40 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 /*---------------- strdup ------------------*/
-void	ft_strdup(char *statik, char *buffer)
+void	ft_strdup(char **statik, char *buffer)
 {
 	int b_len;
 
 	b_len = ft_strlen(buffer);
-	statik = malloc((b_len + 1) * sizeof(char));
-	while (*buffer && b_len-- > 0)
+	*statik = malloc((b_len + 1) * sizeof(char));
+	while (*buffer && b_len > 0)
 	{
-		*statik++ = *buffer++;
+		**statik++ = *buffer++;
+		b_len--;
 	}
-	*statik = 0;
+	**statik = 0;
+	*statik - ft_strlen(buffer);
 }
 /*---------------- ft_isline ------------------*/
 int	ft_isline(char *statik)
@@ -64,7 +66,11 @@ char	*get_next_line(int fd)
 		if (c_read == 0)
 			return (NULL);
 		if (!statik)
-			ft_strdup(statik, buffer);
+			ft_strdup(&statik, buffer);
+		else
+		{
+			
+		}
 		
 	}
 	return ();
