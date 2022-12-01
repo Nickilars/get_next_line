@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:40:15 by nrossel           #+#    #+#             */
-/*   Updated: 2022/12/01 09:54:34 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/12/01 10:27:40 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ int	ft_isline(char *statik, int *c_read)
 	}
 	return (0);
 }
-/*---------------- s ------------------*/
-void	unknow(char **statik, char **line, int index)
+/*---------------- add_str ------------------*/
+void	add_str(char **statik, char *buffer)
 {
 	char *tmp = NULL;
 
-	if (!*statik)
+	if (!*statik || !buffer)
 		return (NULL);
-	ft_substr(*statik, *line, index);
+	ft_strjoin(*statik, buffer)
 }
 /*---------------- get_next_line ------------------*/
 
@@ -80,7 +80,7 @@ char	*get_next_line(int fd)
 			ft_strdup(&statik, buffer);
 		else
 		{
-			
+			add_str(&statik, buffer)
 		}
 		
 	}

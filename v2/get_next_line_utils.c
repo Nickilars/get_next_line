@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:48:55 by nrossel           #+#    #+#             */
-/*   Updated: 2022/12/01 09:54:36 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/12/01 10:27:39 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,28 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 /*--------- 3. strjoin -----------*/
+void	ft_strjoin(char *statik, char *buffer)
+{
+	char	*tmps_s;
+	int		len;
 
+	if (!statik || !buffer)
+		return (NULL);
+	len = ft_strlen(statik) + ft_strlen(buffer);
+	tmp_s = malloc((len + 1) * sizeof(char));
+	if (!tmp_s)
+		return (NULL);
+	while (*buffer)
+	{
+		if (*statik)
+			*tmp_s++ = *statik++;
+		else
+			*tmp_s++ = *buffer++
+	}
+	tmp_s[len + 1] = 0;
+	free(statik);
+	statik = tmp_s - (ft_strlen(tmp_s));
+}
 /*--------- 4. substr -----------*/
 void	ft_substr(char *statik, char *line, int index)
 {
@@ -44,12 +65,12 @@ void	ft_substr(char *statik, char *line, int index)
 		if (*statik == '\n')
 			statik++;
 		if (*line)
-			*line++ = *statik++
+			*line++ = *statik++;
 		else
-			*tmp_s++ = *statik++
+			*tmp_s++ = *statik++;
 	}
 	free(statik);
-	statik = tmp_s;
+	statik = tmp_s - (ft_strlen(tmp_s));
 }
 /*---------  -----------*/
 
