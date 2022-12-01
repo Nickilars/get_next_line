@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:30:55 by nrossel           #+#    #+#             */
-/*   Updated: 2022/11/28 17:02:41 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/12/01 10:51:34 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,13 @@
 # endif
 
 char	*get_next_line(int fd);
+
+void	ft_strdup(char **statik, char *buffer);
+void	ft_strjoin(char **statik, char *buffer);
+void	ft_substr(char **statik, char *line, int index);
+
+int		ft_isline(char *statik, int *c_read);
+
+size_t	ft_strlen(char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:40:15 by nrossel           #+#    #+#             */
-/*   Updated: 2022/12/01 10:27:40 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/12/01 10:51:33 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_strdup(char **statik, char *buffer)
 {
 	int	len;
 
+	if (!buffer)
+		return ();
 	len = BUFFER_SIZE + 1
 	*statik = malloc(len * sizeof(char));
 	while (*buffer && len > 0)
@@ -46,14 +48,6 @@ int	ft_isline(char *statik, int *c_read)
 	return (0);
 }
 /*---------------- add_str ------------------*/
-void	add_str(char **statik, char *buffer)
-{
-	char *tmp = NULL;
-
-	if (!*statik || !buffer)
-		return (NULL);
-	ft_strjoin(*statik, buffer)
-}
 /*---------------- get_next_line ------------------*/
 
 char	*get_next_line(int fd)
@@ -68,7 +62,7 @@ char	*get_next_line(int fd)
 		RETURN (NULL);
 	if (ft_isline(statik, &c_read))
 	{
-		ft_substr(statik, line, c_read);
+		ft_substr(&statik, line, c_read);
 		return (line);
 	}
 	while (1)
@@ -80,11 +74,12 @@ char	*get_next_line(int fd)
 			ft_strdup(&statik, buffer);
 		else
 		{
-			add_str(&statik, buffer)
+			ft_strjoin(&statik, buffer);
+			if (ft_isline(statik, &c_line))
+				break;
 		}
-		
 	}
-	return ();
+	return (ft_substr(&statik, line, c_read));
 }
 
 

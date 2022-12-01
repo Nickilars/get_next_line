@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:48:55 by nrossel           #+#    #+#             */
-/*   Updated: 2022/12/01 10:27:39 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/12/01 10:51:33 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,54 +23,54 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 /*--------- 3. strjoin -----------*/
-void	ft_strjoin(char *statik, char *buffer)
+void	ft_strjoin(char **statik, char *buffer)
 {
 	char	*tmps_s;
 	int		len;
 
-	if (!statik || !buffer)
-		return (NULL);
-	len = ft_strlen(statik) + ft_strlen(buffer);
+	if (!*statik || !buffer)
+		return ();
+	len = ft_strlen(*statik) + ft_strlen(buffer);
 	tmp_s = malloc((len + 1) * sizeof(char));
 	if (!tmp_s)
-		return (NULL);
+		return ();
 	while (*buffer)
 	{
-		if (*statik)
-			*tmp_s++ = *statik++;
+		if (**statik)
+			*tmp_s++ = **statik++;
 		else
-			*tmp_s++ = *buffer++
+			*tmp_s++ = **buffer++
 	}
 	tmp_s[len + 1] = 0;
-	free(statik);
-	statik = tmp_s - (ft_strlen(tmp_s));
+	free(*statik);
+	*statik = tmp_s - (ft_strlen(tmp_s));
 }
 /*--------- 4. substr -----------*/
-void	ft_substr(char *statik, char *line, int index)
+void	ft_substr(char **statik, char *line, int index)
 {
 	char *tmp_s = NULL;
 	int	i;
 
-	i = ft_strlen(statik);
+	i = ft_strlen(*statik);
 	line = malloc((index + 1) * sizeof(char));
 	if (!line)
-		return (NULL);
-	tmp_s = malloc((ft_strlen(statik) - index) * sizeof(char));
+		return ();
+	tmp_s = malloc((ft_strlen(*statik) - index) * sizeof(char));
 	if (!tmp_s)
-		return (NULL);
+		return ();
 	line[index] = 0;
-	tmp_s[ft_strlen(statik) - index] = 0;
+	tmp_s[ft_strlen(*statik) - index] = 0;
 	while (i-- < 0)
 	{
-		if (*statik == '\n')
-			statik++;
+		if (**statik == '\n')
+			*(statik++);
 		if (*line)
-			*line++ = *statik++;
+			*line++ = **statik++;
 		else
-			*tmp_s++ = *statik++;
+			*tmp_s++ = **statik++;
 	}
-	free(statik);
-	statik = tmp_s - (ft_strlen(tmp_s));
+	free(*statik);
+	*statik = tmp_s - (ft_strlen(tmp_s));
 }
 /*---------  -----------*/
 
