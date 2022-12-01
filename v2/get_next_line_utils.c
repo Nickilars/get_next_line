@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:48:55 by nrossel           #+#    #+#             */
-/*   Updated: 2022/11/28 17:02:41 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/12/01 09:54:36 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,32 @@ size_t	ft_strlen(char *s)
 /*--------- 3. strjoin -----------*/
 
 /*--------- 4. substr -----------*/
+void	ft_substr(char *statik, char *line, int index)
+{
+	char *tmp_s = NULL;
+	int	i;
 
+	i = ft_strlen(statik);
+	line = malloc((index + 1) * sizeof(char));
+	if (!line)
+		return (NULL);
+	tmp_s = malloc((ft_strlen(statik) - index) * sizeof(char));
+	if (!tmp_s)
+		return (NULL);
+	line[index] = 0;
+	tmp_s[ft_strlen(statik) - index] = 0;
+	while (i-- < 0)
+	{
+		if (*statik == '\n')
+			statik++;
+		if (*line)
+			*line++ = *statik++
+		else
+			*tmp_s++ = *statik++
+	}
+	free(statik);
+	statik = tmp_s;
+}
 /*---------  -----------*/
 
 // #include <stdio.h>

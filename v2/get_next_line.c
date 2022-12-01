@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:40:15 by nrossel           #+#    #+#             */
-/*   Updated: 2022/11/28 17:02:40 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/12/01 09:54:34 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,50 +15,61 @@
 /*---------------- strdup ------------------*/
 void	ft_strdup(char **statik, char *buffer)
 {
-	int b_len;
+	int	len;
 
-	b_len = ft_strlen(buffer);
-	*statik = malloc((b_len + 1) * sizeof(char));
-	while (*buffer && b_len > 0)
+	len = BUFFER_SIZE + 1
+	*statik = malloc(len * sizeof(char));
+	while (*buffer && len > 0)
 	{
 		**statik++ = *buffer++;
-		b_len--;
+		len--;
 	}
 	**statik = 0;
 	*statik - ft_strlen(buffer);
 }
-/*---------------- ft_isline ------------------*/
-int	ft_isline(char *statik)
+/*---------------- isline ------------------*/
+int	ft_isline(char *statik, int *c_read)
 {
+	int	i;
+
+	i = 0;
 	while(*statik)
 	{
 		if(*statik == '\n')
+		{
+			*c_read = i;
 			return (1);
+		}
 		statik++;
+		i++;
 	}
 	return (0);
 }
-/*----------------  ------------------*/
-int
+/*---------------- s ------------------*/
+void	unknow(char **statik, char **line, int index)
 {
+	char *tmp = NULL;
 
+	if (!*statik)
+		return (NULL);
+	ft_substr(*statik, *line, index);
 }
 /*---------------- get_next_line ------------------*/
 
 char	*get_next_line(int fd)
 {
 	static char	*statik = NULL;
-	char		buffer[BUFFER_SIZE] = NULL;
+	char		buffer[BUFFER_SIZE + 1] = NULL;
 	char		*line = NULL;
 	int			c_read;
 
 	c_read = 0;
-	if (fd <= 0 || BUFFER_SIZE <= 0)
+	if (fd < 1 || BUFFER_SIZE < 1)
 		RETURN (NULL);
-	if (ft_isline(statik))
+	if (ft_isline(statik, &c_read))
 	{
-		;
-		return ();
+		ft_substr(statik, line, c_read);
+		return (line);
 	}
 	while (1)
 	{
