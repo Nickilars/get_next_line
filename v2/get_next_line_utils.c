@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:48:55 by nrossel           #+#    #+#             */
-/*   Updated: 2022/12/01 15:44:02 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/12/02 14:52:02 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,66 +28,64 @@ char	*ft_strjoin(char *statik, char *buffer)
 {
 	char	*tmp_s;
 	int		len;
-	int		len_s;
-	int		i;
 
 	if (!statik || !buffer)
 		return (NULL);
-	len_s = ft_strlen(statik);
 	len = ft_strlen(statik) + BUFFER_SIZE;
 	tmp_s = malloc((len + 1) * sizeof(char));
 	if (!tmp_s)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		if (*statik)
-			tmp_s[i] = *statik++;
-		else
-			tmp_s[i] = *buffer++;
-		i++;
-	}
-	tmp_s[len] = 0;
-	statik = statik - len_s;
+	tmp_s = ft_strncpy(tmp_s, statik, len);
+	tmp_s = ft_strncpy(tmp_s + ft_strlen(statik), buffer, len);
 	free(statik);
 	statik = tmp_s;
 	return (statik);
 }
 
 /*--------- 4. substr -----------*/
-void	ft_substr(char **statik, char **line, int index)
+char	*ft_substr(char **statik, char *line, int index)
 {
 	char	*tmp_s;
-	char	*tmp_l;
-	int		i;
-	int		len_s;
+	char	*tmp;
+	int		len;
 
-	i = ft_strlen(*statik);
-	len_s = ft_strlen(*statik) - index;
-	tmp_l = malloc((index + 1) * sizeof(char));
-	if (!tmp_l)
-		return ;
-	tmp_s = malloc((len_s + 1) * sizeof(char));
+	len = ft_strlen(*statik) - index;
+	tmp_s = malloc((ft_strlen(*statik - index) + 1) * sizeof(char));
 	if (!tmp_s)
-		return ;
-	line[index] = 0;
-	tmp_s[ft_strlen(*statik) - index] = 0;
-	while (i-- < 0)
 	{
-		if (**statik == '\n')
-			(*statik)++;
-		if (*line)
-			*tmp_l++ = **statik++;
-		else
-			*tmp_s++ = **statik++;
+		free(*statik);
+		*statik = NULL;
+		return (NULL);
 	}
-	*line = tmp_l - index;
-	*statik = ;
+	tmp = malloc(index * sizeof(char));
+	if (!tmp)
+	{
+		free(*statik);
+		*statik = NULL;
+		return (NULL);
+	}
+	line = tmp;
+	line = ft_strncpy(line, *statik, index);
+	tmp_s = ft_strncpy(tmp_s, *statik + (index + 1), len);
 	free(*statik);
-	*statik = tmp_s - len_s;
+	*statik = tmp_s;
+	return (line);
 }
-/*---------  -----------*/
 
+/*--------- str_cpy -----------*/
+char	*ft_strncpy(char *dst, char *src, int size)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] && size-- > 0)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = 0;
+	return (dst);
+}
 // #include <stdio.h>
 // #include <stdlib.h>
 // 
@@ -99,12 +97,10 @@ void	ft_substr(char **statik, char **line, int index)
 	// int len;
 // 
 	// len = 0;
-	// printf("%s", ft_strjoin(s1, s2));
 	// printf("\n");
 	// printf("%zu", ft_strlen(s3));
 	// printf("\n");
-	// printf("%s", ft_substr(s3, 0, 7));
+	// printf("%s", ft_substr(&s3, 0, 7));
 	// printf("\n");
-	// printf("%d", ft_found_c(s3));
 	// return (0);
 // }

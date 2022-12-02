@@ -6,7 +6,7 @@
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:40:15 by nrossel           #+#    #+#             */
-/*   Updated: 2022/12/01 15:44:00 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/12/02 14:51:53 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ void	ft_strdup(char **statik, char *buffer)
 	if (!new_str)
 		return ;
 	i = 0;
-	while (*buffer && len-- > 0)
-		new_str[i++] = *buffer++;
+	while (buffer[i] && len-- > 0)
+	{
+		new_str[i] = buffer[i];
+		i++;
+	}
 	new_str[i] = 0;
 	*statik = new_str;
 }
@@ -41,14 +44,13 @@ int	ft_isline(char *statik, int *c_read)
 	i = 0;
 	if (!statik)
 		return (0);
-	while (*statik)
+	while (statik[i])
 	{
-		if (*statik == '\n')
+		if (statik[i] == '\n')
 		{
 			*c_read = i;
 			return (1);
 		}
-		statik++;
 		i++;
 	}
 	return (0);
@@ -71,11 +73,12 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			c_read;
 
-	if (fd < 1 || BUFFER_SIZE < 1)
+	line = NULL;
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	if (ft_isline(statik, &c_read))
 	{
-		ft_substr(&statik, &line, c_read);
+		line = ft_substr(&statik, line, c_read);
 		return (line);
 	}
 	while (1)
@@ -87,22 +90,22 @@ char	*get_next_line(int fd)
 		if (ft_isline(statik, &c_read))
 			break ;
 	}
-	ft_substr(&statik, &line, c_read);
+	line = ft_substr(&statik, line, c_read);
 	return (line);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*line;
-
-	fd = open("myfile.txt", O_RDONLY);
-	while (1)
-	{
-		line = get_next_line(fd);
-		printf("%s\n", line);
-		if (line == NULL)
-			break ;
-		free(line);
-	}
-}
+// int	main(void)
+// {
+	// int		fd;
+	// char	*line;
+// 
+	// fd = open("myfile.txt", O_RDONLY);
+	// while (1)
+	// {
+		// line = get_next_line(fd);
+		// printf("%s\n", line);
+		// if (line == NULL)
+			// break ;
+		// free(line);
+	// }
+// }
