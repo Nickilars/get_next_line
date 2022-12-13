@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrossel <nrossel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:30:55 by nrossel           #+#    #+#             */
-/*   Updated: 2022/12/02 13:51:51 by nrossel          ###   ########.fr       */
+/*   Updated: 2022/12/13 11:41:33 by nrossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <sys/uio.h> //"read"
 # include <unistd.h> // "write","close","read"
@@ -24,19 +24,20 @@
 # include <sys/stat.h> //"open"
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 1000000
 # endif
 
-char	*get_next_line(int fd);
-char	*ft_strjoin(char *statik, char *buffer);
-char	*ft_strncpy(char *dst, char *src, int size);
-char	*ft_substr(char **statik, char *line, int index);
-
-void	statik_check(char **statik, char *buffer);
-void	ft_strdup(char **statik, char *buffer);
-
-int		ft_isline(char *statik, int *c_read);
-
 size_t	ft_strlen(char *s);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+
+int		ft_strchr(const char *str);
+
+char	*get_next_line(int fd);
+char	*ft_strdup(const char *src);
+char	*returnline(char **statik, int c_read);
+char	*ft_strjoin(char const *str1, char const *str2);
+char	*ft_substr(char const *str, unsigned int start, size_t len);
+
+void	ft_str2join(char **statik, char *buffer, int c_read);
 
 #endif
